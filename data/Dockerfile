@@ -12,7 +12,7 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-c
 
 RUN chmod +x /usr/local/bin/docker-compose
 
-RUN groupadd docker
+RUN groupadd -g 999 docker
 
 RUN usermod -aG docker jenkins
 
