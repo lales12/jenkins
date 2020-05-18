@@ -2,7 +2,7 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-RUN apt-get update &&  apt-get install software-properties-common
+RUN apt-get update &&  apt-get  -y install software-properties-common
 
 RUN wget https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/docker-ce-cli_19.03.0~3-0~debian-stretch_amd64.deb
 
