@@ -2,17 +2,37 @@ FROM jenkins/jenkins:lts
 
 USER root
 
+RUN apt-get update &&  apt-get install software-properties-common
+
 RUN wget https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/docker-ce-cli_19.03.0~3-0~debian-stretch_amd64.deb
 
-RUN dpkg -i docker-ce-cli_19.03.0~3-0~debian-stretch_amd64.deb
+RUN install apt-transport-https \
+     ca-certificates \
+     curl \
+     gnupg2 \
+     software-properties-common
 
-RUN rm docker-ce-cli_19.03.0~3-0~debian-stretch_amd64.deb
+RUN curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > /tmp/dkey; apt-key add /tmp/dkey
 
-RUN curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+RUN add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+   stretch \
+   stable"
 
-RUN chmod +x /usr/local/bin/docker-compose
+RUN apt-get update
 
-RUN groupadd -g 999 docker
+RUN apt-get -y install docker-ce
+
+
+# RUN dpkg -i docker-ce-cli_19.03.0~3-0~debian-stretch_amd64.deb
+
+# RUN rm docker-ce-cli_19.03.0~3-0~debian-stretch_amd64.deb
+
+# RUN curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+# RUN chmod +x /usr/local/bin/docker-compose
+
+# RUN groupadd -g 999 docker
 
 RUN usermod -aG docker jenkins
 
