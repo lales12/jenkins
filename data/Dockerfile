@@ -6,7 +6,7 @@ RUN apt-get update
 
 # RUN wget https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/docker-ce-cli_19.03.0~3-0~debian-stretch_amd64.deb
 
-RUN apt-get -y install install apt-transport-https \
+RUN apt-get -y install apt-transport-https \
      ca-certificates \
      curl \
      gnupg2 \
